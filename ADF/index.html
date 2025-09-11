@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AFD</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="index.js" defer> </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        :where(h1) {
+            margin-block: 0.67em;
+            font-size: 2em;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        header{
+            background-color: black;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            color:white;
+        }
+
+        section{
+            margin: 0  auto;
+            width: 80%;
+            margin-top: 40px;
+        }
+    </style>
+
+    <script src="adfV3.js" defer> </script>
 </head>
 <body>
     <header>
@@ -21,22 +55,36 @@
     <section>
         <h1>Automatas</h1>
         <form action="">
-            <table>
+            <label for="alfabeto">Alfabeto</label>
+            <input type="text" name="alfabeto" id="alfabeto"><br>
+            <label for="n_estados">Numero de estados</label>
+            <input type="number" name="numEstados" min="1" id="num_estados"><br>
+            <label for="trasnisciones">Transiciones</label>
+            <input type="text" name="trasnsiciones" id="transiciones"><br>
+            <label for="ed_final">Estados finales</label>
+            <input type="text" name="estados_finales" id="edos_finales"><br>
+            <label for="t_cadena">Cadena a procesar</label>
+            <input type="text" name="cadena" id="cadena"><br>
+            <input type="submit" name="procesar" id="btnProbar" value="Probar">       
+          
+               <!---      <table>
+                
+           
                 <tr>
                     <td><label for="alfabeto">Alfabeto</label></td>
                     <td><input type="text" name="alfabeto" id="alfabeto"></td>
                 </tr>
                 <tr>
                     <td><label for="n_estados">Numero de estados</label></td>
-                    <td><input type="number" name="numEstados" min="1" id="n_estados"></td>
+                    <td><input type="number" name="numEstados" min="1" id="num_estados"></td>
                 </tr>
                 <tr>
                     <td><label for="trasnisciones">Transiciones</label></td>
-                    <td><input type="text" name="trasnsiciones" id="t_cion"></td>
+                    <td><input type="text" name="trasnsiciones" id="transiciones"></td>
                 </tr>
                 <tr>
-                    <td><label for="ed_final">Esatdos finales</label></td>
-                    <td><input type="text" name="estados_finales" id="edo_final"></td>
+                    <td><label for="ed_final">Estados finales</label></td>
+                    <td><input type="text" name="estados_finales" id="edos_finales"></td>
                 </tr>
 
                 <tr>
@@ -45,7 +93,7 @@
                 </tr>
 
             </table>
-            <input type="submit" name="procesar" id="btn" value="Probar">            
+            <input type="submit" name="procesar" id="btnProbar" value="Probar"> --->           
         </form>
     </section>
 
