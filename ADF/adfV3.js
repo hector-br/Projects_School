@@ -1,37 +1,36 @@
-// Estructura del ADF
-const ADF = {
-    alfabeto:"",
-    numSimbolos:"",
-    numEstados:"",
+// Estructura del AFD
+const AFD = {
+    alfabeto:[],
+    numSimbolos:0,
+    numEstados:0,
     tabla:[],
-    estadosFinales:""
+    estadosFinales:[]
 }
 
 
 function leerAutomata(){
 
-    /*let btnProbarCadena = document.getElementById('btnProbar');
-    btnProbarCadena.addEventListener('click', ()=>{
-   
-        let alfabeto = document.getElementById('alfabeto');
-        let numEstados = document.getElementById('num_estados');
-        let edosFinales = document.getElementById('edos_finales');
-   
-        return (alfabeto, numEstados, tabla, edosFinales);
-    });*/
-
-    let alfabeto = prompt('Ingresa el afabeto sin espacios');
+    let alfabeto = prompt('Ingresa el afabeto sin espacios').split('');
     let numEstados = parseInt(prompt('Ingresa el numero de estados'));
 
     let tabla = [];
     for(let i=0; i<numEstados; i++){
-        let trancisiones = prompt('Ingrese la transicion para el estado: ' + i);
-        tabla.push(trancisiones);
+        let transiciones = prompt('Ingrese la transicion para el estado: ' + i);
+        let transObj = {};
+        transiciones.split(',').forEach(t => {
+            let [simbolo, destino] = t.split(':');
+            transObj[simbolo] = parseInt(destino);
+        });
+        tabla.push(transObj);
     }
 
-    let edosFinales = prompt('Ingrese los estados finales separados por espacios');
+    let edosFinales = prompt('Ingrese los estados finales separados por espacios').split('');
 
-    return(alfabeto, numEstados, tabla, edosFinales);
+    AFD.alfabeto = alfabeto;
+    AFD.numSimbolos = alfabeto.length;
+    AFD.numEstados = 5;
+    AFD.tabla = tabla;
+    AFD.estadosFinales = edosFinales;
     
 }
 
@@ -39,7 +38,7 @@ function leerCadena(){
     return prompt('Ingrese la cadena a procesar');
 }
 
-function simularCadena(ADF, cadena){
+function simularCadena(AFD, cadena){
     let estadoActual = 0;
     let traza=[];
 
@@ -51,11 +50,11 @@ function simularCadena(ADF, cadena){
             return 0;
         }
 
-        let indiceSimbolo = ADF.alfabeto.indexOf(simbolo);
-        let TransicionesDeEstado = ADF.tabla[estadoActual];
+        let indiceSimbolo = AFD.alfabeto.indexOf(simbolo);
+        let TransicionesDeEstado = AFD.tabla[estadoActual];
     }
 
-    simboloValido(c){
-        return ADF.alfabeto.includes(c);
-    }
 }
+document.getElementById('btnProbar').addEventListener('click', ()=>{
+  alert(AFD.numEstados);
+});
