@@ -110,5 +110,6 @@ function main(){
 
 document.getElementById('btnProbar').addEventListener('click', (event)=>{
     event.preventDefault();
+    traza =[];
     main();
 });
