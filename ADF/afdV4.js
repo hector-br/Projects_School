@@ -81,7 +81,7 @@ function simularCadena(AFD, cadena){
         let simbolo = cadena[i];
 
         if(!simboloValido(simbolo)){
-            console.log('Simbolo invalido: ' + simbolo + ' no pertenece al alfabeto');
+            console.log('simbolo fuera del alfabeto:  ' + simbolo);
             return 0;
         }
 
@@ -98,7 +98,7 @@ function simularCadena(AFD, cadena){
 
         let siguienteEstado = transicionesEstados[indiceSimbolo];
         if(siguienteEstado === '#' || isNaN(siguienteEstado)){
-            console.log("Transicion invalida: para estado =  " + estadoActual + ", simbolo " + simbolo);
+            console.log("ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">");
             return 0;
         }
 
