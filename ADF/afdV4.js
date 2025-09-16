@@ -1,77 +1,159 @@
-// 🧩 Estructura del autómata
-const Automata = {
-    alfabeto: [],
-    numEstados: 0,
-    tabla: [],
-    finales: [],
-    cadena: ""
-};
+// Estructura del AFD
+const AFD = {
+    alfabeto:[],
+    numSimbolos:0,
+    numEstados:0,
+    tabla:[],
+    estadosFinales:[]
+}
 
-// 📥 Módulo 1: leerAutomata()
-// Lee el alfabeto, número de estados, tabla de transiciones y estados finales
-function leerAutomata() {
-    Automata.alfabeto = prompt("Ingresa el alfabeto sin espacios (ej: ab)").split('');
-    Automata.numEstados = parseInt(prompt("Ingresa el número de estados"));
 
-    // Leer tabla de transiciones
-    for (let i = 0; i < Automata.numEstados; i++) {
-        let fila = prompt(`Transiciones para estado ${i} (ej: 1 2 o # 2)`).split(' ');
-        let transiciones = fila.map(val => val === '#' ? null : parseInt(val));
-        Automata.tabla.push(transiciones);
+function leerAutomata(){
+
+    let alfabeto = prompt('Ingresa el afabeto sin espacios').split('');
+    let numEstados = parseInt(prompt('Ingresa el numero de estados'));
+
+    let tabla = [];
+    for(let i=0; i<numEstados; i++){
+        let transiciones = prompt('Ingrese la transicion para el estado: ' + i).split(' ');
+        /*let transObj = {};
+        transiciones.split(',').forEach(t => {
+            let [simbolo, destino] = t.split(':');
+            transObj[simbolo] = parseInt(destino);
+        });*/
+        //tabla.push(transObj);
+        tabla.push(transiciones);
+        //console.log(tabla[i]);
     }
+    console.log('Tabla de transiciones');
+    /*console.log('    |   a(0)   |   b(1)');
+    for (let i = 0; i < tabla.length; i++) {
+        let fila = `${i}   |   ${tabla[i][0]}      |   ${tabla[i][1]}`;
+        console.log(fila);
+    }*/
+    
+    let encabezado = '    |';
+    alfabeto.forEach(simbolo => {
+        encabezado += `  ${simbolo}(${alfabeto.indexOf(simbolo)})  |`;
+    });
+    console.log(encabezado);
 
-    // Leer estados finales
-    let finales = prompt("Estados de aceptación separados por espacio (ej: 1 2)").split(' ');
-    Automata.finales = finales.filter(e => e !== '').map(Number);
+    for (let i = 0; i < tabla.length; i++) {
+        let fila = `${i}   |`;
+        for (let j = 0; j < alfabeto.length; j++) {
+            fila += `   ${tabla[i][j]}    |`;
+        }
+        console.log(fila);
+    }
+    
+    let edosFinales = prompt('Ingrese los estados finales separados por espacios').split(' ').map(Number);
+
+    AFD.alfabeto = alfabeto;
+    AFD.numSimbolos = alfabeto.length;
+    AFD.numEstados = numEstados;
+    AFD.tabla = tabla;
+    AFD.estadosFinales = edosFinales;   
+    /*
+    console.log('Datos de entrada');
+    console.log(''+alfabeto);
+    console.log(''+numEstados)
+    for(let f=0; f<tabla.length; f++){
+        console.log(''+tabla[f]);
+    }
+    console.group(''+edosFinales);*/
 }
 
-// 📥 Módulo 2: leerCadena()
-// Lee la cadena a procesar
-function leerCadena() {
-    Automata.cadena = prompt("Ingresa la cadena a procesar (ej: abb)");
+function simboloValido(c){
+    return AFD.alfabeto.includes(c);
 }
 
-// 🔄 Módulo 3: simular()
-// Procesa la cadena y construye la traza
-function simular() {
+function leerCadena(){
+    let cadena =  prompt('Ingrese la cadena a procesar');
+    console.log('cadena: ' + cadena);
+    return cadena;
+}
+
+let traza=[];
+function simularCadena(AFD, cadena){
     let estadoActual = 0;
-    let traza = [];
+   console.log('Ejecucion paso a paso: ');
+    for(let i=0; i<cadena.length; i++){
+        let simbolo = cadena[i];
 
-    for (let i = 0; i < Automata.cadena.length; i++) {
-        let simbolo = Automata.cadena[i];
-        let idx = Automata.alfabeto.indexOf(simbolo);
-
-        if (idx === -1) {
-            console.log(`ERROR: símbolo fuera del alfabeto: ${simbolo}`);
-            return;
+        if(!simboloValido(simbolo)){
+            console.log('Simbolo invalido: ' + simbolo + ' no pertenece al alfabeto');
+            return 0;
         }
 
-        let siguienteEstado = Automata.tabla[estadoActual][idx];
-        if (siguienteEstado === null || siguienteEstado === undefined) {
-            console.log(`ERROR: transición no definida para (estado=${estadoActual}, símbolo=${simbolo})`);
-            return;
+        let indiceSimbolo = AFD.alfabeto.indexOf(simbolo); //Busca la posiscion del simbolo
+        //console.log('Indice del simbolo: ' + indiceSimbolo);
+
+        let transicionesEstados = AFD.tabla[estadoActual];
+        //console.log('Transiscinoes para estado '+ estadoActual +' : ' + transicionesEstados);
+
+        if(!transicionesEstados || indiceSimbolo >= transicionesEstados.length){
+            console.log("Transicion no definida para estado: " + estadoActual + "con simbolo: " + simbolo);
+            return 0;
         }
 
-        traza.push(`(e${estadoActual},${simbolo})`);
-        estadoActual = siguienteEstado;
+        let siguienteEstado = transicionesEstados[indiceSimbolo];
+        if(siguienteEstado === '#' || isNaN(siguienteEstado)){
+            console.log("Transicion invalida: para estado =  " + estadoActual + ", simbolo " + simbolo);
+            return 0;
+        }
+
+        //traza.push([estadoActual, simbolo]);
+        traza.push([estadoActual, indiceSimbolo, siguienteEstado]);
+
+        console.log(' ( ' + estadoActual + ',' + indiceSimbolo + ' ) ' + ' --> ' + siguienteEstado);
+        
+        estadoActual = parseInt(siguienteEstado);
+
+        //console.log("Estado acutual sisguiente: " + estadoActual);
+        ///console.log([estadoActual, simbolo]);
+  
     }
+    //console.log(traza);
+    console.log("Estado final: " + estadoActual);
 
-    // Verificar aceptación
-    if (Automata.finales.includes(estadoActual)) {
-        console.log("ACEPTADA");
+    if (AFD.estadosFinales.includes(estadoActual)) {
+        return 1;
     } else {
-        console.log("RECHAZADA");
+        return 0;
     }
-
-    // Imprimir traza
-    console.log("TRAZA: [" + traza.join(',') + "]");
 }
 
-// 🧪 Módulo 4: ejecución principal
-function main() {
-    leerAutomata();   // Módulo 1
-    leerCadena();     // Módulo 2
-    simular();        // Módulo 3
+
+function imprimirTraza(){
+    //let salida = traza.map(par => `(${par[0]},${par[1]})`).join(',');
+    let salida = traza.map(par => ` ((${par[0]},${par[1]}), ${par[2]})`).join(',');
+
+    /*let nuevoContent = document.createElement('p');
+    nuevoContent.textContent = 'Traza: [' + salida + ']';
+    let container = document.getElementById('resultado');
+    container.appendChild(nuevoContent);*/
+
+    console.log('Traza: [' + salida + ']');
+
 }
 
-main(); // Ejecutar todo
+function main(){
+    leerAutomata();
+    let cadena = leerCadena();
+    
+    let resultado = simularCadena(AFD, cadena);
+    if(resultado == 1){
+        console.log("\nAceptada");
+    }else{
+        console.log("\nRechazada");
+    }
+    imprimirTraza();
+}
+
+
+
+document.getElementById('btnProbar').addEventListener('click', (event)=>{
+    event.preventDefault();
+    traza =[];
+    main();
+});

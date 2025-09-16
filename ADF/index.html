@@ -32,14 +32,33 @@
             color:white;
         }
 
-        section{
+        section, #resultado{
             margin: 0  auto;
             width: 80%;
             margin-top: 40px;
+        } input, label{
+            display: none;
         }
+        #btnProbar{
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10PX;
+            border: none;
+            display: block;
+        }
+        #btnProbar:active{
+            background-color: blue;
+         
+        }
+        h3{
+            margin:20px 20px 20px 0px;
+        }
+       
     </style>
 
-    <script src="adfV3.js" defer> </script>
+    <script src="afdV4.js" defer> </script>
 </head>
 <body>
     <header>
@@ -68,6 +87,9 @@
             <input type="submit" name="procesar" id="btnProbar" value="Probar">            
         </form>
     </section>
+    <!--<div id="resultado">
+        <h3>Resultado</h3>
+    </div>-->
 
 </body>
 </html>
