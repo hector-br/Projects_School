@@ -77,11 +77,17 @@ let traza=[];
 function simularCadena(AFD, cadena){
     let estadoActual = 0;
    console.log('Ejecucion paso a paso: ');
+    let content = document.getElementById('resultado');
+    let mensjeError =  document.createElement('p');
+    mensjeError.style.fontSize = '20px';
     for(let i=0; i<cadena.length; i++){
         let simbolo = cadena[i];
 
         if(!simboloValido(simbolo)){
             console.log('simbolo fuera del alfabeto:  ' + simbolo);
+           
+            mensjeError.textContent = 'simbolo fuera del alfabeto:  ' + simbolo;
+            content.appendChild(mensjeError);
             return 0;
         }
 
@@ -90,15 +96,21 @@ function simularCadena(AFD, cadena){
 
         let transicionesEstados = AFD.tabla[estadoActual];
         //console.log('Transiscinoes para estado '+ estadoActual +' : ' + transicionesEstados);
-
+       
         if(!transicionesEstados || indiceSimbolo >= transicionesEstados.length){
             console.log("Transicion no definida para estado: " + estadoActual + "con simbolo: " + simbolo);
+            let mensjeError = document.createElement('p');
+            mensjeError.textContent = "Transicion no definida para estado: " + estadoActual + "con simbolo: " + simbolo;
+            content.appendChild(mensjeError);
             return 0;
         }
 
         let siguienteEstado = transicionesEstados[indiceSimbolo];
         if(siguienteEstado === '#' || isNaN(siguienteEstado)){
             console.log("ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">");
+            let mensjeError = document.createElement('p');
+            mensjeError.textContent = "ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">";
+            content.appendChild(mensjeError);
             return 0;
         }
 
@@ -133,7 +145,7 @@ function imprimirTraza(){
     const content =  document.getElementById('resultado');
     let mostrarResultado =  document.createElement('p');
     mostrarResultado.textContent = 'Traza: [' + salida + ']';
-    mostrarResultado.style.fontSize = '30px';
+    mostrarResultado.style.fontSize = '25px';
     content.appendChild(mostrarResultado);
 
 }
@@ -153,17 +165,19 @@ function main(){
 
 
     let resultado = simularCadena(AFD, cadena);
+    let mensengeAcept = document.createElement('p');
+    mensengeAcept.style.fontSize = '20px';
+    mensengeAcept.margin = '20px';
     if(resultado == 1){
-        let mensengeAcept = document.createElement('p');
-        mensengeAcept.textContent = 'Aceptada';
-        mensengeAcept.style.fontSize = '20px';
-        content.appendChild(mensengeAcept);
+
         console.log("\nAceptada");
+        mensengeAcept.textContent = 'Aceptada';
+        content.appendChild(mensengeAcept);
+
     }else{
-        
-        let mensengeAcept = document.createElement('p');
-        mensengeAcept.textContent = 'Rechazada';
+
         console.log("\nRechazada");
+        mensengeAcept.textContent = 'Rechazada';
         content.appendChild(mensengeAcept);
     }
 
@@ -175,7 +189,7 @@ function main(){
 document.getElementById('btnProbar').addEventListener('click', (event)=>{
     event.preventDefault();
     traza =[];
-    const content = document.getElementById('resultado').value="";
+    const content = document.getElementById('resultado').innerHTML="";
     
     main();
 });
