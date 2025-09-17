@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFD</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        :where(h1) {
+            margin-block: 0.67em;
+            font-size: 2em;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        header{
+            background-color: black;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            color:white;
+        }
+
+        section, #resultado{
+            margin: 0  auto;
+            width: 80%;
+            margin-top: 40px;
+        } input, label{
+            display: none;
+        }
+        #btnProbar{
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10PX;
+            border: none;
+            display: block;
+            cursor: pointer;
+        }
+        #btnProbar:active{
+            background-color: blue;
+         
+        }
+        h3{
+            margin:20px 20px 20px 0px;
+        }
+        #resultado{
+            position: absolute;
+            left: 50%;
+            top:5%;
+        }
+       
+    </style>
+
+    <script src="afdV5.js" defer> </script>
+</head>
+<body>
+    <header>
+        <h5>AFD</h5>
+        <nav>
+            <ul>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="section">
+        <h1>Automatas</h1>
+        <form action="">
+            <label for="alfabeto">Alfabeto</label>
+            <input type="text" name="alfabeto" id="alfabeto"><br>
+            <label for="n_estados">Numero de estados</label>
+            <input type="number" name="numEstados" min="1" id="num_estados"><br>
+            <label for="trasnisciones">Transiciones</label>
+            <input type="text" name="trasnsiciones" id="transiciones"><br>
+            <label for="ed_final">Estados finales</label>
+            <input type="text" name="estados_finales" id="edos_finales"><br>
+            <label for="t_cadena">Cadena a procesar</label>
+            <input type="text" name="cadena" id="cadena"><br>
+            <input type="submit" name="procesar" id="btnProbar" value="Probar">            
+        </form>
+    </section>
+    <div id="resultado">
+        <!--Se mostrara el resultado-->
+    </div>
+
+</body>
+</html>
