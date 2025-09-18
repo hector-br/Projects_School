@@ -7,31 +7,30 @@ const AFD = {
     estadosFinales:[]
 }
 
-
 function leerAutomata(){
 
-    let alfabeto = prompt('Ingresa el afabeto sin espacios').split('');
-    let numEstados = parseInt(prompt('Ingresa el numero de estados'));
-
+    //let alfabeto = prompt('Ingresa el afabeto sin espacios').split('');
+    let alfabeto = document.getElementById('alfabeto').value.split('');
+    //let numEstados = parseInt(prompt('Ingresa el numero de estados'));
+    let numEstados = document.getElementById('num_estados').value;
     let tabla = [];
-    for(let i=0; i<numEstados; i++){
+    /*for(let i=0; i<numEstados; i++){
         let transiciones = prompt('Ingrese la transicion para el estado: ' + i).split(' ');
-        /*let transObj = {};
-        transiciones.split(',').forEach(t => {
-            let [simbolo, destino] = t.split(':');
-            transObj[simbolo] = parseInt(destino);
-        });*/
-        //tabla.push(transObj);
         tabla.push(transiciones);
         //console.log(tabla[i]);
+    }*/
+    const trasnsis = document.querySelectorAll('.transision');
+    console.log(trasnsis[0].value);
+    for(let i=0; i<trasnsis.length; i++){
+        tabla.push(trasnsis[i].value.split(' '));
     }
+
     console.log('Tabla de transiciones');
     /*console.log('    |   a(0)   |   b(1)');
     for (let i = 0; i < tabla.length; i++) {
         let fila = `${i}   |   ${tabla[i][0]}      |   ${tabla[i][1]}`;
         console.log(fila);
     }*/
-    
     let encabezado = '    |';
     alfabeto.forEach(simbolo => {
         encabezado += `  ${simbolo}(${alfabeto.indexOf(simbolo)})  |`;
@@ -46,21 +45,18 @@ function leerAutomata(){
         console.log(fila);
     }
     
-    let edosFinales = prompt('Ingrese los estados finales separados por espacios').split(' ').map(Number);
+    //let edosFinales = prompt('Ingrese los estados finales separados por espacios').split(' ').map(Number);
+    let edosFinales = document.getElementById('edos_finales').value.split(' ').map(Number);
 
     AFD.alfabeto = alfabeto;
     AFD.numSimbolos = alfabeto.length;
     AFD.numEstados = numEstados;
     AFD.tabla = tabla;
-    AFD.estadosFinales = edosFinales;   
-    /*
-    console.log('Datos de entrada');
-    console.log(''+alfabeto);
-    console.log(''+numEstados)
-    for(let f=0; f<tabla.length; f++){
-        console.log(''+tabla[f]);
-    }
-    console.group(''+edosFinales);*/
+    AFD.estadosFinales = edosFinales; 
+
+    alfabeto.value = "";
+    edosFinales.value = "";
+
 }
 
 function simboloValido(c){
@@ -68,7 +64,8 @@ function simboloValido(c){
 }
 
 function leerCadena(){
-    let cadena =  prompt('Ingrese la cadena a procesar');
+    //let cadena =  prompt('Ingrese la cadena a procesar');
+    let cadena = document.getElementById('cadena').value; 
     console.log('cadena: ' + cadena);
     return cadena;
 }
@@ -100,7 +97,7 @@ function simularCadena(AFD, cadena){
         if(!transicionesEstados || indiceSimbolo >= transicionesEstados.length){
             console.log("Transicion no definida para estado: " + estadoActual + "con simbolo: " + simbolo);
             let mensjeError = document.createElement('p');
-            mensjeError.textContent = "Transicion no definida para estado: " + estadoActual + "con simbolo: " + simbolo;
+            mensjeError.textContent = "Transicion no definida para estado: " + estadoActual + " con simbolo: " + simbolo;
             content.appendChild(mensjeError);
             return 0;
         }
@@ -191,5 +188,43 @@ document.getElementById('btnProbar').addEventListener('click', (event)=>{
     traza =[];
     const content = document.getElementById('resultado').innerHTML="";
     
-    main();
+    main().then(() => {
+     borrarDatos(event);
+    });
 });
+
+
+function generarCampos(){
+    let numEstados = parseInt(document.getElementById('num_estados').value);
+    const containerTransiciones = document.getElementById('transiciones');
+    containerTransiciones.innerHTML = "";
+
+    for(let i=0; i < numEstados;  i++){
+        const instruccion = document.createElement('label');
+        instruccion.textContent = 'Ingresa la transicion para el estado '+ i +' separado por espacios';
+
+        const transicion = document.createElement('input');
+        transicion.type = 'text';
+        transicion.classList.add('transision');
+        transicion.required =  true;
+
+        containerTransiciones.appendChild(instruccion);
+        containerTransiciones.appendChild(transicion);
+        containerTransiciones.appendChild(document.createElement("br"));
+
+    }
+}
+
+
+function borrarDatos(event){
+    event.preventDefault(); 
+     document.getElementById("alfabeto").value = "";
+    document.getElementById("num_estados").value = "1"; // o el valor por defecto que prefieras
+    document.getElementById("edos_finales").value = "";
+    document.getElementById("cadena").value = "";
+
+    // Limpiar los campos generados dinámicamente
+    document.getElementById("transiciones").innerHTML = "";
+}
+
+

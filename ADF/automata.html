@@ -37,9 +37,9 @@
             width: 80%;
             margin-top: 40px;
         } input, label{
-            display: none;
+            display: block;
         }
-        #btnProbar{
+        #btnProbar, #probarNueva{
             padding: 10px 20px;
             background-color: black;
             color: white;
@@ -61,6 +61,9 @@
             left: 50%;
             top:5%;
         }
+        #probarNueva{
+            display: none;
+        }
        
     </style>
 
@@ -79,18 +82,28 @@
     </header>
     <section id="section">
         <h1>Automatas</h1>
-        <form action="">
+        <form action="" id="recibirDatos" onsubmit="borrarDatos(event)">
             <label for="alfabeto">Alfabeto</label>
             <input type="text" name="alfabeto" id="alfabeto"><br>
             <label for="n_estados">Numero de estados</label>
-            <input type="number" name="numEstados" min="1" id="num_estados"><br>
-            <label for="trasnisciones">Transiciones</label>
-            <input type="text" name="trasnsiciones" id="transiciones"><br>
+            <!--<input type="number" name="numEstados" min="1" id="num_estados" onchange="generarCampos()"><br>-->
+            <select id="num_estados" onchange="generarCampos()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            <label for="trasnisciones">Transiciones</label><br>
+            <!--<input type="text" name="trasnsiciones" id="transiciones"><br>-->
+            <div id="transiciones"></div>
             <label for="ed_final">Estados finales</label>
             <input type="text" name="estados_finales" id="edos_finales"><br>
             <label for="t_cadena">Cadena a procesar</label>
             <input type="text" name="cadena" id="cadena"><br>
-            <input type="submit" name="procesar" id="btnProbar" value="Probar">            
+            <input type="submit" name="procesar" id="btnProbar" value="Probar">    
+            <input type="button" name="nueva" id="probarNueva" value ="Otra">        
         </form>
     </section>
     <div id="resultado">

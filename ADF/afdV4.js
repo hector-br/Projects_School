@@ -92,7 +92,7 @@ function simularCadena(AFD, cadena){
         //console.log('Transiscinoes para estado '+ estadoActual +' : ' + transicionesEstados);
 
         if(!transicionesEstados || indiceSimbolo >= transicionesEstados.length){
-            console.log("Transicion no definida para estado: " + estadoActual + "con simbolo: " + simbolo);
+            console.log("Transicion no definida para estado: " + estadoActual + " con simbolo: " + simbolo);
             return 0;
         }
 
