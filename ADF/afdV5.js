@@ -188,9 +188,7 @@ document.getElementById('btnProbar').addEventListener('click', (event)=>{
     traza =[];
     const content = document.getElementById('resultado').innerHTML="";
     
-    main().then(() => {
-     borrarDatos(event);
-    });
+    main();
 });
 
 
