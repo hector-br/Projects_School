@@ -104,9 +104,9 @@ function simularCadena(AFD, cadena){
 
         let siguienteEstado = transicionesEstados[indiceSimbolo];
         if(siguienteEstado === '#' || isNaN(siguienteEstado)){
-            console.log("ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">");
+            console.log("ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">)");
             let mensjeError = document.createElement('p');
-            mensjeError.textContent = "ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">";
+            mensjeError.textContent = "ERROR: transicion no definida para ( estado=<" + estadoActual + ">" + ", simbolo=<" + simbolo + ">)";
             content.appendChild(mensjeError);
             return 0;
         }
