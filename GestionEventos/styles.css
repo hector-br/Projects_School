@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    height: 100vh;
+    background-color: orange;
+}
+
+header{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 15px 20px;
+    text-align: center;
+    background-color: #ff7000;
+}
+.logo{
+    width: 60px;
+    height: 60px;
+    background-color: black;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+ul{
+    display: grid;
+    grid-template-columns: 1fr;
+    list-style: none;
+    gap: 2em;
+}
+button{
+    width: 50%;
+    padding: 12px 10px;
+    font-size: 12px;
+    border: none;
+    background-color: orange;
+    color: white;
+    border: solid silver 1px;
+    cursor: pointer;
+}
+
+.frase{
+    color: silver;
+    letter-spacing: 2px;
+}
+.palabra-exp{
+    text-transform: uppercase;
+    display: block;
+    font-size: 40px;
+    color: silver;
+}
+.palabra-inolvidable{
+    text-transform: uppercase;
+}
+
+.contenedor-eventos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.evento{
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+.evento-2, .evento-3, .evento-6{
+     background-color: white;
+     color: silver;
+}
+.evento-1, .evento-4, .evento-5{
+    color: white;
+}
+p{
+    margin-top: 25%;
+    font-size: 25px;
+}
+
+
+
+ #vista-evento{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 100vh;
+    background-color: #ff7000;
+ }
+ #vista-evento div:first-child{
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+ }
+ .nombre-evento{
+    font-size: 30px;
+    color: silver;
+    letter-spacing: 2px;
+    font-style: italic;
+ }
+ .imagen-evento{
+    width: 40%;
+    margin: 20px 0px;
+ }
+
+ .informacion-evento{
+    margin-top: 50px;
+    text-align: center;
+    background-color: orange;
+    height: 80%;
+    width: 70%;
+    padding: 50px 0px;
+ }
+ .acceder-evento{
+    width: 50px;
+    height: 50px;
+    border: solid white 2px;
+    border-radius: 50%;
+    padding: 20px 25px;
+    margin-bottom: 30px;
+}
+a{
+    color: white;
+}
+.datos-evento{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2em;
+}
+
+.datos-evento li{
+    border-bottom: solid silver 1px;
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px 0px;
+    color: white;
+    font-size: 14px;
+}
