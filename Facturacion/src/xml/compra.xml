@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<productos>
+	<producto>
+		<cantidad>2</cantidad>
+		<descripcion>Libreta</descripcion>
+		<importe>20</importe>
+	</producto>
+	<producto>
+		<cantidad>1</cantidad>
+		<descripcion>Teclado</descripcion>
+		<importe>200</importe>
+	</producto>
+	<producto>
+		<cantidad>3</cantidad>
+		<descripcion>Marcadores para pizarron</descripcion>
+		<importe>60</importe>
+	</producto>
+
+</productos>
